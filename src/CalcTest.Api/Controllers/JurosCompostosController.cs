@@ -22,8 +22,12 @@ namespace CalcTest.Api.Controllers
         [HttpGet]
         public IActionResult Get([FromQuery]JurosCompostosViewModel vm)
         {
-            var teste = _jurosCompostosService.Calcular(vm).Result;
-            return Ok(teste);
+            var result = _jurosCompostosService.Calcular(vm).Result;
+
+            if (_domainNotification.HasNotifications)
+                return BadRequest(_domainNotification.Notifications);
+
+            return Ok(result);
         }
     }
 }

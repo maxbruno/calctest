@@ -9,7 +9,7 @@ namespace CalcTest.Service.Automapper
         public ViewModelToDomainMappingProfile()
         {
             CreateMap<JurosCompostosViewModel, JurosCompostos>()
-                .ConstructUsing(jcvm => new JurosCompostos(jcvm.ValorInicial, jcvm.Meses));
+                .ConstructUsing(vm => new JurosCompostos(vm.ValorInicial, vm.Meses));
         }
     }
 }
