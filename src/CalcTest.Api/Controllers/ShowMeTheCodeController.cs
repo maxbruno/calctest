@@ -13,6 +13,6 @@ namespace CalcTest.Api.Controllers
     {
         [HttpGet]
         public IActionResult Get()
-            => Ok("https://github.com/max.bruno/softplayer/");
+            => Ok("https://github.com/maxbruno/calctest");
     }
 }

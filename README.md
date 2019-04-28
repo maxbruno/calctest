@@ -1,4 +1,4 @@
-## Teste Calcular Juros Compostos
+## Teste para Calcular Juros Compostos
 
 Tecnologias implementadas:
 
