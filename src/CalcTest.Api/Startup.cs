@@ -1,11 +1,11 @@
-﻿using CalcTest.DI;
+﻿using AutoMapper;
+using CalcTest.DI;
 using CalcTest.Service.Automapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using AutoMapper;
+using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace CalcTest.Api
@@ -22,7 +22,14 @@ namespace CalcTest.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.SerializerSettings.Formatting = Formatting.Indented;
+            });
+
+
             services.AddDependencies();
             services.AddAutoMapper(typeof(AutoMapperConfig));
 
@@ -57,6 +64,8 @@ namespace CalcTest.Api
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "API cálculo de juros compostos");
             });
             app.UseMvc();
+
+
 
         }
     }
