@@ -39,7 +39,7 @@ namespace CalcTest.Api
                 {
                     Version = "v1",
                     Title = "API cálculo de juros compostos",
-                    Description = "Teste para Softplan",
+                    Description = "Teste para Cálculo de juros compostos",
                     Contact = new Contact
                     {
                         Name = "Bruno max",
