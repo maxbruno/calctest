@@ -12,12 +12,6 @@ steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'Building Project'
 
-- task: DotNetCoreCLI@2
-  displayName: 'Testing'
-  inputs:
-    command: test
-    projects: '**/*Tests/*.csproj'
-
 - script: docker build --no-cache -f Dockerfile -t $(dockerId)/$(imageName) .
   displayName: 'Building Docker Image'
 
