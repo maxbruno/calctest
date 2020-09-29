@@ -8,5 +8,5 @@ services:
     build:
       context: .
       dockerfile: src/CalcTest.Api/Dockerfile
-    ports:
-      - 80
+    ports: 
+      - "4100:80"

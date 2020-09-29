@@ -1,4 +1,7 @@
 ﻿
+using System;
+using System.IO;
+using System.Reflection;
 using AutoMapper;
 using CalcTest.DI;
 using CalcTest.Service.Automapper;
@@ -7,7 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.OpenApi.Models;
 
 namespace CalcTest.Api
 {
@@ -26,21 +29,24 @@ namespace CalcTest.Api
             services.AddMvc();
             services.AddDependencies();
             services.AddAutoMapper(typeof(AutoMapperConfig));
-
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info
+                c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
                     Title = "API cálculo de juros compostos",
                     Description = "Teste para Cálculo de juros compostos",
-                    Contact = new Contact
+                    Contact = new OpenApiContact
                     {
-                        Name = "Bruno max",
+                        Name = "Bruno Max",
                         Email = "bruno.max@outlook.com",
-                        Url = "https://github.com/maxbruno/calctest"
+                        Url = new Uri("https://github.com/maxbruno"),
                     }
                 });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
         }
 
@@ -51,11 +57,18 @@ namespace CalcTest.Api
                 app.UseDeveloperExceptionPage();
             }
 
-
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "API cálculo de juros compostos");
+            });
+
+            app.UseHttpsRedirection();
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
             });
         }
     }
